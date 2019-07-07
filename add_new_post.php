@@ -12,10 +12,9 @@ $topicSubject = $_POST['topicsubject'];
 $content = $_POST['content'];
 $username = $_POST['username'];
 
-
-if (isset($_POST['topicsubject']) &&
-    isset($_POST['content']) &&
-    isset($_POST['username'])) {
+if (isset($topicSubject) &&
+    isset($content) &&
+    isset($username)) {
 
 
     // check if user exists
@@ -81,24 +80,37 @@ if (isset($_POST['topicsubject']) &&
     $topicId = $topicResult["id"];
 
     //insert image to uploads file
-    $targetDir = "uploads/";
-    $fileName = basename($_FILES['image']['name']);
-    $targetFilePath = $targetDir . $fileName;
-    $fileType = pathinfo($targetFilePath, PATHINFO_EXTENSION);
+    if (ISSET($_FILES['image']['name'])) {
+        $targetDir = "uploads/";
+        $fileName = basename($_FILES['image']['name']);
+        $targetFilePath = $targetDir . $fileName;
+        $fileType = pathinfo($targetFilePath, PATHINFO_EXTENSION);
 
-    $allowTypes = array('gif', 'png', 'jpg', 'jpeg');
-    if (in_array($fileType, $allowTypes)) {
-        move_uploaded_file($_FILES['image']['tmp_name'], $targetFilePath);
+        $allowTypes = array('gif', 'png', 'jpg', 'jpeg');
+        if (in_array($fileType, $allowTypes)) {
+            move_uploaded_file($_FILES['image']['tmp_name'], $targetFilePath);
+            include_once ("image_resize.php");
+            $resizedFilePath = "uploads/resized_$fileName";
+            $wmax = 200;
+            $hmax = 150;
+            img_resize($targetFilePath, $resizedFilePath, $wmax, $hmax, $fileType);
+        }
     }
     $add_new_post = $mysqli->prepare("INSERT INTO posts (content, topic_id, user_id, image)
           VALUES (?,?,?,?)");
-    $add_new_post->bind_param("siis", $content, $topicId, $userId, $targetFilePath);
+    $add_new_post->bind_param("siis", $content, $topicId, $userId, $resizedFilePath);
     $add_new_post->execute();
 
 }
 
+//if ($_GET['id'] == $topicId){echo "true";}
+    header("Location: topic.php?id=".$topicId."&page=1");
+
+//}else{
+//    header("Location: Frontpage.php");
+//}
 
 $mysqli->close();
 
-header("Location: Frontpage.php");
+
 

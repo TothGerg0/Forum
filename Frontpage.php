@@ -5,62 +5,43 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="main.css">
     <title>MyForum</title>
 </head>
 
 <body>
 
-    <div id='container'>
-      <div id='new_post_container'>
-          <form id='newpost' action='add_new_post.php' method='post' name='newpost' enctype="multipart/form-data">
-              <table>
-                  <tr>
-                    <td>Topic: </td>
-                      <td> <input  id='topicsubject' type='text' name='topicsubject'></td>
-                  </tr>
-                  <tr>
-                      <td>Content: </td>
-                      <td><textarea name='content'  id='content'></textarea></td>
-                  </tr>
-                 <tr>
-                      <td>Posted by: </td>
-                      <td><input id='username' type='text'  name='username'></td>
-                  </tr>
-              </table>
 
-              <input type='file' name='image' id='image'><br>
+<div id="container">
+    <div id="page">
+        <div id="banner">
+            <h1>Welcome to MyForum</h1>
+        </div>
+        <div id='new_post_container'>
+            <form id='newpost' action='add_new_post.php' method='post' name='newpost' enctype="multipart/form-data">
 
-              <input type='submit' name='insert' id='insert' value="Submit"><br>
+                <label id="lb_topic">Topic:</label>
+                <input id='topicsubject' type='text' name='topicsubject'>
+                <label id="lb_content">Content:</label>
+                <textarea name='content' id='content'></textarea>
+                <label id="lb_posted_by">Posted by:</label>
+                <input id='username' type='text' name='username'>
+
+                <input type='file' name='image' id='image'>
+
+                <input type='submit' name='insert' id='insert' value="Submit">
 
 
-          </form>
-      </div>
-   </div><br>
-<!--<script>-->
-<!--    $(document).ready(function () {-->
-<!--       $('#insert').click(function () {-->
-<!--           var image_name = $('#image').val();-->
-<!--           if (image_name == '') {-->
-<!--                alert("Please select image!");-->
-<!--                return false;-->
-<!--            } else {-->
-<!--                var extension = $('#image').val().split('.').pop().toLowerCase();-->
-<!--                if(jQuery.inArray(extension, ['gif','png','jpg','jpeg']) == -1)-->
-<!--                {-->
-<!--                    alert('Invalid image file!');-->
-<!--                    $('#image').val('');-->
-<!--                    return false;-->
-<!--                }-->
-<!--            }-->
-<!--        })-->
-<!--    })-->
-<!--</script>-->
-<?php
-session_start();
-$mysqli = new mysqli( "localhost", "root", "", "forum");
-$mysqli->query("SET NAMES utf8");
-$result2 =$mysqli->query( "SELECT
+            </form>
+        </div>
+
+        <div id="topics">
+            <?php
+            session_start();
+            $mysqli = new mysqli("localhost", "root", "", "forum");
+            $mysqli->query("SET NAMES utf8");
+            $result2 = $mysqli->query("SELECT
 topics.id,
 topics.topicsubject,
 topics.user_id,
@@ -73,23 +54,22 @@ INNER JOIN users
   ON posts.user_id = users.id AND topics.user_id = users.id
   GROUP BY topics.topicsubject");
 
+            while ($row = $result2->fetch_object()) {
+                echo "<div class='topic'>";
+                echo "<a class='subject' href='topic.php?id=" . $row->id . "&page=1'>" . $row->topicsubject . "</a>";
+                echo "<a class='user' href='topic.php?id=" . $row->user_id . "'>" . $row->username . "</a>";
+                echo "<p class='date'>" . $row->topicdate . "</p>";
+                echo "</div>";
+            }
+            $result2->close();
+            ?>
+        </div>
+        <div id="footer">
+            MyForum © 2019
+        </div>
+    </div>
+</div>
 
-
-echo "<table border='1'>";
-echo "<th>Topics</th>";
-echo "<th>Posted by</th>";
-echo "<th>Date</th>";
-while ($row = $result2 -> fetch_object()) {
-    echo "<tr>";
-    echo "<td><a href='topic.php?id=".$row->id."'>".$row->topicsubject."</a></td>";
-    echo "<td><a href='topic.php?id=".$row->user_id."'>".$row->username."</a></td>";
-    echo "<td>".$row->topicdate."</td>";
-
-    echo "</tr>";
-}
-echo "</table>";
-    $result2->close();
-?>
 </body>
 
 </html>

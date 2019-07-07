@@ -1,32 +1,223 @@
-body{
-    background-color: darksalmon;
+* {
+    margin: 0;
+    padding: 0;
 }
-#container{
-    margin: auto;
-    width: 500px;
+
+
+
+html, body {
+    background-color: deepskyblue;
+    height: 100%;
 }
+
+#container {
+    min-height: 100%;
+    display: grid;
+    grid-template-columns: 1fr 70% 1fr;
+    grid-template-areas: ". page .";
+    grid-gap: 5px;
+
+}
+
+#page{
+    height: 100%;
+    grid-area: page;
+    display: grid;
+    background-color: white;
+    grid-template-rows: 55px 220px 1fr 55px;
+    grid-template-areas: "banner" "newpost" "posts" "footer";
+    grid-gap: 5px;
+
+
+}
+
+#banner {
+    grid-area: banner;
+    justify-self: center;
+    align-self: center;
+}
+/*---------------user input-----------------*/
 #new_post_container{
-    width: 500px;
-    height: 220px;
-    border: 3px solid brown;
-    padding: 5px
+    padding-left: 20%;
+    padding-right: 20%;
 }
-#topicsubject{
-    width: 400px;
-   
+#newpost {
+    grid-area: newpost;
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: 17% 1fr;
+    grid-template-rows: 1.5em 1fr 1.5em 1.5em 1.5em;
+    grid-template-areas: "lb_topic topicsubject" "lb_content content" "lb_posted_by username" "image image" "insert insert";
+    grid-gap: 5px;
+
+}
+#lb_topic{
+    grid-area:lb_topic;
+    background-color: deepskyblue;
+    border: 1px solid black;
+    padding: 2px;
+}
+#topicsubject {
+    grid-area:topicsubject;
+}
+#lb_content{
+    grid-area:lb_content;
+    background-color: deepskyblue;
+    border: 1px solid black;
+    padding: 2px;
+
+}
+#content {
+
+    grid-area: content;
+}
+#lb_posted_by{
+    grid-area:lb_posted_by;
+    background-color: deepskyblue;
+    border: 1px solid black;
+    padding: 2px;
+}
+#username {
+
+    grid-area:username;
 }
 
-#content{
-    width: 400px;
-    height: 100px;
+#image {
+grid-column: 1/3;
+    grid-area:image;
+    justify-self: left;
 
 }
-#username{
-    width: 200px;
+
+#insert {
+    grid-column: 1/3;
+    grid-area:insert;
+    justify-self: left;
+    width: 60px;
 }
-#image{
-    margin: 5px;
+
+/*---------------user input-----------------*/
+
+/*---------------topic list-----------------*/
+
+#topics {
+    border-top: 1px solid deepskyblue;
+    border-bottom: 1px solid deepskyblue;
+
+    grid-area: posts;
+
 }
-#insert{
-    margin: 5px;
+.topic{
+    display: grid;
+    grid-template-columns: 40% 10% 15% 1fr;
+    grid-template-rows: auto;
+    grid-template-areas: "subject user date .";
+    grid-gap: 10px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+.subject{
+    grid-area: subject;
+}
+.user{
+    grid-area: user;
+    justify-self: start;
+}
+.date{
+    grid-area: date;
+}
+/*---------------topic list-----------------*/
+
+#footer {
+
+    grid-area: footer;
+    align-self: center;
+    padding-left: 5px;
+}
+
+
+@media only screen and (max-width: 360px) {
+    #container {
+        grid-template-columns: 1fr 90% 1fr;
+    }
+
+
+    #banner {
+        font-size: 10px;
+    }
+    /*---------------user input-----------------*/
+
+    #new_post_container{
+        padding-left: 5%;
+        padding-right: 5%;
+    }
+
+    #newpost {
+
+        display: grid;
+        grid-template-columns: 25% 1fr;
+
+        grid-gap: 3px;
+
+    }
+
+    #lb_topic{
+        font-size: 14px;
+        padding: 2px;
+    }
+
+    #lb_content{
+        font-size: 14px;
+        padding: 2px;
+
+    }
+
+    #lb_posted_by{
+        font-size: 14px;
+        padding: 2px;
+    }
+
+    #image {
+        font-size: 10px;
+
+
+    }
+
+    #insert {
+
+        width: 40px;
+        font-size: 10px;
+        height: 80%;
+    }
+    /*---------------user input-----------------*/
+    /*---------------topic list-----------------*/
+
+    .topic{
+
+        grid-template-columns: 40% 25% 29%;
+        grid-template-areas: "subject user date";
+
+    }
+    .subject{
+        grid-area: subject;
+        font-size: 14px;
+        padding: 2px;
+    }
+    .user{
+
+        justify-self: start;
+        font-size: 14px;
+        padding: 2px;
+    }
+    .date{
+
+        font-size: 14px;
+        padding: 2px;
+    }
+
+    /*---------------topic list-----------------*/
+    #footer {
+        font-size: 14px;
+    }
 }

@@ -1,0 +1,317 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+
+
+html, body {
+    background-color: deepskyblue;
+    height: 100%;
+}
+
+textarea{ resize: none}
+
+#container {
+    min-height: 100%;
+    display: grid;
+    grid-template-columns: 1fr 70% 1fr;
+    grid-template-areas: ". page .";
+    grid-gap: 5px;
+
+}
+#page{
+    height: 100%;
+    grid-area: page;
+    display: grid;
+    background-color: white;
+    grid-template-rows: 55px 220px auto 1fr 55px 55px;
+    grid-template-areas: "banner" "newpost" "lb_topicsubject" "posts" "pagecounter" "footer";
+    grid-gap: 5px;
+}
+#banner {
+
+    grid-area: banner;
+    justify-self: center;
+    align-self: center;
+
+    background-color: white;
+}
+/*---------------user input-----------------*/
+#new_post_container{
+    padding-left: 20%;
+    padding-right: 20%;
+    background-color: white;
+
+}
+#newpost {
+    grid-area: newpost;
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    grid-template-rows: 1.5em 1fr 1.5em 1.5em 1.5em;
+    grid-template-areas: "lb_topic topicsubject" "lb_content content" "lb_posted_by username" "image image" "insert insert";
+    grid-gap: 5px;
+    background-color: white;
+
+}
+#lb_topic{
+    grid-area:lb_topic;
+    background-color: deepskyblue;
+    border: 1px solid black;
+    padding: 2px;
+}
+#topicsubject {
+    grid-area:topicsubject;
+}
+#lb_content{
+    grid-area:lb_content;
+    background-color: deepskyblue;
+    border: 1px solid black;
+    padding: 2px;
+
+}
+#content {
+
+    grid-area: content;
+}
+#lb_posted_by{
+    grid-area:lb_posted_by;
+
+    background-color: deepskyblue;
+    border: 1px solid black;
+    padding: 2px;
+}
+#username {
+
+    grid-area:username;
+}
+
+#image {
+    grid-column: 1/3;
+    grid-area:image;
+    justify-self: left;
+
+}
+
+#insert {
+    grid-column: 1/3;
+    grid-area:insert;
+    justify-self: left;
+    width: 60px;
+}
+
+/*---------------user input-----------------*/
+#lb_topicsubject{
+    grid-area: lb_topicsubject;
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-template-rows: auto ;
+    grid-template-areas: "subject frontpage";
+    grid-gap: 5px;
+    background-color: white;
+    border-top: 2px solid deepskyblue;
+
+}
+#subject{
+    grid-area:subject;
+    justify-self: right;
+    padding-left: 10px;
+
+}
+#frontpage{
+    grid-area:frontpage;
+    justify-self: left;
+    align-self: end;
+    padding-bottom: 5px;
+    padding-right: 10px;
+}
+/*---------------Posts list-----------------*/
+
+#posts {
+
+    grid-area: posts;
+    background-color: white;
+    border-bottom: 2px solid deepskyblue;
+}
+.post{
+    display: grid;
+    border-top: 2px solid deepskyblue;
+
+    grid-template-columns: min-content auto 1fr;
+    grid-template-rows: 1.5em auto;
+    grid-template-areas: "name_and_date name_and_date ." "uploadedimage content .";
+    grid-gap: 10px;
+    padding-left: 5px;
+    padding-right: 5px;
+    background-color: white;
+
+}
+.name_and_date{
+    grid-area: name_and_date;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-template-rows: 1.5em;
+    grid-template-areas: "user date";
+grid-gap: 10px;
+
+}
+.uploadedimage{
+    grid-area: uploadedimage;
+
+}
+.content{
+    grid-area: content;
+    padding: 5px;
+}
+.user{
+    grid-area: user;
+
+    justify-self: start;
+}
+.date{
+    grid-area: date;
+grid-column-start: 2;
+
+}
+/*---------------Posts list-----------------*/
+
+/*---------------Page counter-----------------*/
+
+#pagecounter{
+    text-align: center;
+    align-self: center;
+    border-bottom: 2px solid deepskyblue;
+    width: 100%;
+}
+/*---------------Page counter-----------------*/
+
+#footer {
+
+    grid-area: footer;
+align-self: center;
+
+    padding-left: 5px;
+}
+
+@media only screen and (max-width: 914px) {
+    #container {
+        grid-template-columns: 1fr 90% 1fr;
+
+
+    }
+}
+
+@media only screen and (max-width: 360px) {
+
+    #page{
+        width: 100%;
+
+    }
+
+    #banner {
+        font-size: 10px;
+    }
+    /*---------------user input-----------------*/
+
+    #new_post_container{
+        max-width: 100%;
+        padding-left: 5%;
+        padding-right: 5%;
+        grid-template-columns: 15% 1fr;
+    }
+
+    #newpost {
+        max-width: 100%;
+
+        display: grid;
+        grid-template-columns: 20% 1fr;
+
+        grid-gap: 3px;
+
+    }
+
+    #lb_topic{
+        font-size: 12px;
+        padding: 2px;
+    }
+
+    #lb_content{
+        font-size: 12px;
+        padding: 2px;
+
+    }
+
+    #lb_posted_by{
+        font-size: 12px;
+        padding: 2px;
+    }
+
+    #image {
+        font-size: 10px;
+
+
+    }
+
+    #insert {
+
+        width: 40px;
+        font-size: 10px;
+        height: 80%;
+    }
+    /*---------------user input-----------------*/
+
+    #subject{
+
+        font-size: 16px;
+    }
+    #frontpage{
+        padding-bottom: 0px;
+    }
+    /*---------------topic list-----------------*/
+    #posts {
+        width: 324px;
+
+
+
+    }
+    .post{
+        grid-template-columns: min-content auto;
+        grid-template-rows: 1.5em auto auto;
+        grid-template-areas: "name_and_date name_and_date" "uploadedimage ." "content content";
+    }
+
+    .uploadedimage{
+        grid-area: uploadedimage;
+
+    }
+    .content{
+        font-size: 14px;
+
+    }
+    .user{
+        grid-area: user;
+
+        justify-self: start;
+    }
+    .date{
+        grid-area: date;
+        grid-column-start: 2;
+
+    }
+
+
+    .name_and_date{
+        padding-top: 5px;
+
+    }
+
+    /*---------------Posts list-----------------*/
+
+
+
+    #footer {
+        font-size: 14px;
+    }
+}
